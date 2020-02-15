@@ -7,6 +7,7 @@
         "48": "icons/popup-48.png"
     },
     "permissions": [
+        "<all_urls>",
         "tabs"
     ],
     "browser_action": {
