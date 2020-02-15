@@ -40,12 +40,12 @@
 // Execute listTabs when display.html is loaded
 document.addEventListener("DOMContentLoaded", listTabs);
 
-function getCurrentWindowTabs() {
+function getTabs() {
 	// Return tabs.Tab object for tabs in the current window
 
 	// ONLY ACTIVE WINDOW
 	// return browser.tabs.query({ currentWindow: true });
-	
+
 	// EVERY WINDOW BUT THE ACTIVE WINDOW
 	// return browser.tabs.query({ currentWindow: false });
 
@@ -54,11 +54,11 @@ function getCurrentWindowTabs() {
 }
 
 function listTabs() {
-	getCurrentWindowTabs().then(function (tabs) {
+	getTabs().then(function (tabs) {
 		let tabsList = document.getElementById('tabList');
 		let currentTabs = document.createDocumentFragment();
 		// let limit = 5;
-		// let counter = 0;
+		let counter = 1;
 
 		// Clear the content of tabList to keep refreshing the data 
 		// everytime you click on the extension
@@ -69,14 +69,22 @@ function listTabs() {
 			let tabLink = document.createElement('a');
 			let br = document.createElement('br');
 
-			tabLink.textContent = tab.title || tab.id;
+			tabLink.textContent = counter + '. ' + (tab.title || tab.id)
+				+ '\n' + tab.lastAccessed + '\n' + tab.windowId;
 
-			tabLink.setAttribute('href', tab.id);
+			tabLink.setAttribute('href', tab.url);
+
+			// tabLink.onclick = () => {
+			// 	window.open(tab.id, tab.title);
+			// 	browser.tabs.create({"url": tabs.url})
+			// 	browser.tab.remove(tab.id);
+			// }
+
 			tabLink.classList.add('switchTabs');
 			currentTabs.appendChild(tabLink);
 			currentTabs.appendChild(br);
 			// }
-			// counter += 1;
+			counter += 1;
 		}
 		tabsList.appendChild(currentTabs);
 	});
