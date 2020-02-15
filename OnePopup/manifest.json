@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "One Popup",
+    "name": "OnePopup",
     "version": "1.0",
     "description": "Gets all the opened tabs into one popup.",
     "icons": {
