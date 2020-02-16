@@ -33,8 +33,10 @@ function listTabs() {
 			let time = new Date(tab.lastAccessed).toLocaleString();
 
 			tabLink.textContent = counter + '. ' + (tab.title || tab.id);
-			tabLink.textContent += ' Last accessed: ' + time + ' \n' + tab.windowId;
+			tabLink.textContent += ' \r\nLast accessed: ' + time + tab.windowId;
 
+			// This is used to add linebreak in textContent.
+			tabLink.setAttribute('style', 'white-space: pre;');
 			tabLink.setAttribute('href', tab.url);
 
 			// tabLink.onclick = () => {
