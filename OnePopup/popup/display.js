@@ -39,11 +39,21 @@ function listTabs() {
 			tabLink.setAttribute('style', 'white-space: pre;');
 			tabLink.setAttribute('href', tab.url);
 
-			// tabLink.onclick = () => {
-			// 	window.open(tab.id, tab.title);
-			// 	browser.tabs.create({"url": tabs.url})
-			// 	browser.tab.remove(tab.id);
+			// tabLink.onclick = function () {
+			// 	// window.open(tab.id, tab.title);
+			// 	// browser.tabs.create({ "url": tabs.url })
+			// 	// browser.tab.remove(tab.id);
 			// }
+
+
+			// WIP-------------------------------------------
+			tabLink.addEventListener("click", function (e) {
+				e.preventDefault();
+				browser.windows.create({
+					url: [tab.url]
+				});
+			})
+			// ----------------------------------------------
 
 			tabLink.classList.add('switchTabs');
 			currentTabs.appendChild(tabLink);
