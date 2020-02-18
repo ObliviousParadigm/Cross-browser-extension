@@ -1,17 +1,23 @@
 html, body {
-    width: auto;
-    height: 500px;
+	width: auto;
+	height: 500px;
+	/* background-color: #1d1d1d;
+	color: #ffffff; */
 }
 
 .button {
-    margin: 3% auto;
-    padding: 4px;
-    text-align: center;
-    font-size: 1.5em;
-    cursor: pointer;
+	margin: 3% auto;
+	padding: 4px;
+	text-align: center;
+	font-size: 1.5em;
+	cursor: pointer;
 }
 
-switchTabs{
-    color: red;
-    background-color: pink;
+.switchTabs a{
+	text-decoration: none;
+	/* color: #099cdd; */
+}
+
+.switchTabs a:visited {
+	/* color: #00e634; */
 }
