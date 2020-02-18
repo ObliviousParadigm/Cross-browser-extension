@@ -40,9 +40,10 @@ function listTabs() {
 
 			if (tab.windowId != window) {
 				let newWindow = document.createElement('p');
-				newWindow.innerHTML = 'Window ' + winCounter + '\n<hr>';
+				newWindow.innerHTML = 'Window ' + winCounter;
 
 				newWindow.setAttribute('style', 'white-space: pre;');
+				newWindow.classList.add('para', 'alert', 'alert-dark', 'w-25', 'h-25');
 
 				currentTabs.appendChild(newWindow);
 
@@ -51,7 +52,7 @@ function listTabs() {
 				winCounter += 1
 				window = tab.windowId;
 			}
-			
+
 			let tabLink = document.createElement('a');
 			let br = document.createElement('br');
 			let time = new Date(tab.lastAccessed).toLocaleString();
@@ -80,7 +81,14 @@ function listTabs() {
 			})
 			// ----------------------------------------------
 
-			tabLink.classList.add('switchTabs');
+			if (tab.active) {
+				tabLink.classList.add('active');
+			}
+
+			// list-group-item, list-group-item-action are used to display the anchor tags nicely
+			// overflow-auto is used to handle text that's longer than the popup
+			tabLink.classList.add('list-group-item', 'list-group-item-action', 'overflow-auto');
+
 			currentTabs.appendChild(tabLink);
 			currentTabs.appendChild(br);
 			tabCounter += 1;
