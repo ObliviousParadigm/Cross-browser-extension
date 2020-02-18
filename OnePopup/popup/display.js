@@ -26,6 +26,12 @@ function listTabs() {
 		tabsList.textContent = '';
 
 		for (tab of tabs) {
+			if (!arr.includes(tab.windowId)) {
+				arr.push()
+			}
+		}
+
+		for (tab of tabs) {
 			// let window = tab.windowId;
 
 			let tabLink = document.createElement('a');
