@@ -34,26 +34,30 @@ function listTabs() {
 			}
 		}
 
-		let window = arr[0];
+		let window = Infinity;
 
 		for (tab of tabs) {
 
 			if (tab.windowId != window) {
 				let newWindow = document.createElement('p');
 				newWindow.innerHTML = 'Window ' + winCounter + '\n<hr>';
-				winCounter += 1
-				window = tab.windowId;
 
 				newWindow.setAttribute('style', 'white-space: pre;');
 
 				currentTabs.appendChild(newWindow);
+
+				// Updating and reseting variables
+				tabCounter = 1
+				winCounter += 1
+				window = tab.windowId;
 			}
+			
 			let tabLink = document.createElement('a');
 			let br = document.createElement('br');
 			let time = new Date(tab.lastAccessed).toLocaleString();
 
 			tabLink.textContent = tabCounter + '. ' + (tab.title || tab.id);
-			tabLink.textContent += ' \r\nLast accessed: ' + time + tab.windowId;
+			tabLink.textContent += ' \r\n\tLast accessed: ' + time + tab.windowId;
 
 			// This is used to add linebreak in textContent.
 			tabLink.setAttribute('style', 'white-space: pre;');
