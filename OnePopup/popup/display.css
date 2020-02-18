@@ -5,19 +5,17 @@ html, body {
 	color: #ffffff; */
 }
 
+.para {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	height: 10%;
+}
+
 .button {
 	margin: 3% auto;
 	padding: 4px;
 	text-align: center;
 	font-size: 1.5em;
 	cursor: pointer;
-}
-
-.switchTabs a{
-	text-decoration: none;
-	/* color: #099cdd; */
-}
-
-.switchTabs a:visited {
-	/* color: #00e634; */
 }
