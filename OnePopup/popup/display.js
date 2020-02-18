@@ -18,22 +18,46 @@ function listTabs() {
 	getTabs().then(function (tabs) {
 		let tabsList = document.getElementById('tabList');
 		let currentTabs = document.createDocumentFragment();
-		let counter = 1;
+		let tabCounter = 1;
+		let winCounter = 1;
 		let tab;
+		let arr = [];
 
 		// Clear the content of tabList to keep refreshing the data 
 		// everytime you click on the extension
 		tabsList.textContent = '';
 
+		// Collecting all the window numbers
 		for (tab of tabs) {
-			// let window = tab.windowId;
+			if (!arr.includes(tab.windowId)) {
+				arr.push(tab.windowId)
+			}
+		}
 
+		let window = Infinity;
+
+		for (tab of tabs) {
+
+			if (tab.windowId != window) {
+				let newWindow = document.createElement('p');
+				newWindow.innerHTML = 'Window ' + winCounter + '\n<hr>';
+
+				newWindow.setAttribute('style', 'white-space: pre;');
+
+				currentTabs.appendChild(newWindow);
+
+				// Updating and reseting variables
+				tabCounter = 1
+				winCounter += 1
+				window = tab.windowId;
+			}
+			
 			let tabLink = document.createElement('a');
 			let br = document.createElement('br');
 			let time = new Date(tab.lastAccessed).toLocaleString();
 
-			tabLink.textContent = counter + '. ' + (tab.title || tab.id);
-			tabLink.textContent += ' \r\nLast accessed: ' + time + tab.windowId;
+			tabLink.textContent = tabCounter + '. ' + (tab.title || tab.id);
+			tabLink.textContent += ' \r\n\tLast accessed: ' + time + tab.windowId;
 
 			// This is used to add linebreak in textContent.
 			tabLink.setAttribute('style', 'white-space: pre;');
@@ -59,7 +83,9 @@ function listTabs() {
 			tabLink.classList.add('switchTabs');
 			currentTabs.appendChild(tabLink);
 			currentTabs.appendChild(br);
-			counter += 1;
+
+			tabCounter += 1;
+
 		}
 		tabsList.appendChild(currentTabs);
 	});
