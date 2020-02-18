@@ -40,7 +40,9 @@ function listTabs() {
 
 			if (tab.windowId != window) {
 				let newWindow = document.createElement('p');
-				newWindow.textContent = 'Window ' + winCounter + '\r\n<hr>\r\n';
+				newWindow.innerHTML = 'Window ' + winCounter + '\n<hr>';
+				winCounter += 1
+				window = tab.windowId;
 
 				newWindow.setAttribute('style', 'white-space: pre;');
 
@@ -50,7 +52,7 @@ function listTabs() {
 			let br = document.createElement('br');
 			let time = new Date(tab.lastAccessed).toLocaleString();
 
-			tabLink.textContent = counter + '. ' + (tab.title || tab.id);
+			tabLink.textContent = tabCounter + '. ' + (tab.title || tab.id);
 			tabLink.textContent += ' \r\nLast accessed: ' + time + tab.windowId;
 
 			// This is used to add linebreak in textContent.
@@ -77,7 +79,7 @@ function listTabs() {
 			tabLink.classList.add('switchTabs');
 			currentTabs.appendChild(tabLink);
 			currentTabs.appendChild(br);
-			counter += 1;
+			tabCounter += 1;
 		}
 		tabsList.appendChild(currentTabs);
 	});
