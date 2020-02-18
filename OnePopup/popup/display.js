@@ -18,22 +18,34 @@ function listTabs() {
 	getTabs().then(function (tabs) {
 		let tabsList = document.getElementById('tabList');
 		let currentTabs = document.createDocumentFragment();
-		let counter = 1;
+		let tabCounter = 1;
+		let winCounter = 1;
 		let tab;
+		let arr = [];
 
 		// Clear the content of tabList to keep refreshing the data 
 		// everytime you click on the extension
 		tabsList.textContent = '';
 
+		// Collecting all the window numbers
 		for (tab of tabs) {
 			if (!arr.includes(tab.windowId)) {
-				arr.push()
+				arr.push(tab.windowId)
 			}
 		}
 
-		for (tab of tabs) {
-			// let window = tab.windowId;
+		let window = arr[0];
 
+		for (tab of tabs) {
+
+			if (tab.windowId != window) {
+				let newWindow = document.createElement('p');
+				newWindow.textContent = 'Window ' + winCounter + '\r\n<hr>\r\n';
+
+				newWindow.setAttribute('style', 'white-space: pre;');
+
+				currentTabs.appendChild(newWindow);
+			}
 			let tabLink = document.createElement('a');
 			let br = document.createElement('br');
 			let time = new Date(tab.lastAccessed).toLocaleString();
@@ -65,7 +77,6 @@ function listTabs() {
 			tabLink.classList.add('switchTabs');
 			currentTabs.appendChild(tabLink);
 			currentTabs.appendChild(br);
-			// }
 			counter += 1;
 		}
 		tabsList.appendChild(currentTabs);
