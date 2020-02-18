@@ -50,8 +50,9 @@ function listTabs() {
 			tabLink.addEventListener("click", function (e) {
 				e.preventDefault();
 				browser.windows.create({
-					url: [tab.url]
+					url: tabLink.getAttribute('href')
 				});
+				// window.open(tabLink.getAttribute('href'));
 			})
 			// ----------------------------------------------
 
