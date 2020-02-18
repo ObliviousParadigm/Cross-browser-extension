@@ -83,7 +83,9 @@ function listTabs() {
 			tabLink.classList.add('switchTabs');
 			currentTabs.appendChild(tabLink);
 			currentTabs.appendChild(br);
+
 			tabCounter += 1;
+
 		}
 		tabsList.appendChild(currentTabs);
 	});
