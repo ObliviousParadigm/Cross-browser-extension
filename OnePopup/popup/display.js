@@ -21,7 +21,6 @@ function listTabs() {
 		let tabCounter = 1;
 		let winCounter = 1;
 		let tab;
-		let arr = [];
 
 		// Clear the content of tabList to keep refreshing the data 
 		// everytime you click on the extension
@@ -56,7 +55,6 @@ function listTabs() {
 			// This is used to add linebreak in textContent.
 			tabLink.setAttribute('style', 'white-space: pre;');
 			tabLink.setAttribute('href', tab.url);
-			tabLink.setAttribute('id', tab.id);
 
 			// WIP-------------------------------------------
 			// tabLink.addEventListener("click", function (e) {
@@ -68,8 +66,12 @@ function listTabs() {
 			// });
 			// alert(tab.id)
 			// window.open(tabLink.getAttribute('href'));
+
 			// 	var removing = browser.tabs.remove(tabLink.getAttribute('id'));
 			// 	removing.then(onRemoved, onError);
+
+			// 	browser.tabs.remove(tab.id)
+
 			// })
 			// ----------------------------------------------
 
@@ -83,7 +85,9 @@ function listTabs() {
 
 			currentTabs.appendChild(tabLink);
 			currentTabs.appendChild(br);
+
 			tabCounter += 1;
+
 		}
 		tabsList.appendChild(currentTabs);
 	});
