@@ -27,13 +27,6 @@ function listTabs() {
 		// everytime you click on the extension
 		tabsList.textContent = '';
 
-		// Collecting all the window numbers
-		for (tab of tabs) {
-			if (!arr.includes(tab.windowId)) {
-				arr.push(tab.windowId)
-			}
-		}
-
 		let window = Infinity;
 
 		for (tab of tabs) {
@@ -73,11 +66,16 @@ function listTabs() {
 
 			// WIP-------------------------------------------
 			tabLink.addEventListener("click", function (e) {
-				e.preventDefault();
-				browser.windows.create({
-					url: tabLink.getAttribute('href')
-				});
+				// e.preventDefault();
+				// browser.windows.create({
+				// 	url: tabLink.getAttribute('href'),
+				// 	tabId: tab.id,
+				// 	focused: true
+				// });
+				// alert(tab.id)
 				// window.open(tabLink.getAttribute('href'));
+				browser.tabs.remove(tab.id)
+
 			})
 			// ----------------------------------------------
 
