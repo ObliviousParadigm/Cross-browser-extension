@@ -66,6 +66,10 @@ function listTabs() {
 			// });
 			// alert(tab.id)
 			// window.open(tabLink.getAttribute('href'));
+
+			// 	var removing = browser.tabs.remove(tabLink.getAttribute('id'));
+			// 	removing.then(onRemoved, onError);
+
 			// 	browser.tabs.remove(tab.id)
 
 			// })
