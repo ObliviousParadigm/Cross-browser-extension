@@ -66,13 +66,6 @@ function listTabs() {
 			tabLink.setAttribute('href', tab.url);
 			tabLink.setAttribute('id', tab.id);
 
-			// tabLink.onclick = function () {
-			// 	// window.open(tab.id, tab.title);
-			// 	// browser.tabs.create({ "url": tabs.url })
-			// 	// browser.tab.remove(tab.id);
-			// }
-
-
 			// WIP-------------------------------------------
 			// tabLink.addEventListener("click", function (e) {
 			// e.preventDefault();
