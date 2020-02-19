@@ -21,7 +21,6 @@ function listTabs() {
 		let tabCounter = 1;
 		let winCounter = 1;
 		let tab;
-		let arr = [];
 
 		// Clear the content of tabList to keep refreshing the data 
 		// everytime you click on the extension
@@ -57,26 +56,19 @@ function listTabs() {
 			tabLink.setAttribute('style', 'white-space: pre;');
 			tabLink.setAttribute('href', tab.url);
 
-			// tabLink.onclick = function () {
-			// 	// window.open(tab.id, tab.title);
-			// 	// browser.tabs.create({ "url": tabs.url })
-			// 	// browser.tab.remove(tab.id);
-			// }
-
-
 			// WIP-------------------------------------------
-			tabLink.addEventListener("click", function (e) {
-				// e.preventDefault();
-				// browser.windows.create({
-				// 	url: tabLink.getAttribute('href'),
-				// 	tabId: tab.id,
-				// 	focused: true
-				// });
-				// alert(tab.id)
-				// window.open(tabLink.getAttribute('href'));
-				browser.tabs.remove(tab.id)
+			// tabLink.addEventListener("click", function (e) {
+			// e.preventDefault();
+			// browser.windows.create({
+			// 	url: tabLink.getAttribute('href'),
+			// 	tabId: tab.id,
+			// 	focused: true
+			// });
+			// alert(tab.id)
+			// window.open(tabLink.getAttribute('href'));
+			// 	browser.tabs.remove(tab.id)
 
-			})
+			// })
 			// ----------------------------------------------
 
 			if (tab.active) {
