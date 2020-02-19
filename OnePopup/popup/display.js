@@ -58,7 +58,7 @@ function listTabs() {
 			let time = new Date(tab.lastAccessed).toLocaleString();
 
 			tabLink.textContent = tabCounter + '. ' + (tab.title || tab.id);
-			tabLink.textContent += ' \r\n\tLast accessed: ' + time + tab.windowId;
+			tabLink.textContent += ' \r\n\tLast accessed: ' + time;
 
 			// This is used to add linebreak in textContent.
 			tabLink.setAttribute('style', 'white-space: pre;');
