@@ -14,14 +14,6 @@ function getTabs() {
 	return browser.tabs.query({});
 }
 
-function onRemoved() {
-	console.log(`Removed`);
-}
-
-function onError(error) {
-	console.log(`Error: ${error}`);
-}
-
 function listTabs() {
 	getTabs().then(function (tabs) {
 		let tabsList = document.getElementById('tabList');
