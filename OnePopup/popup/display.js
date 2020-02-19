@@ -14,6 +14,14 @@ function getTabs() {
 	return browser.tabs.query({});
 }
 
+function onRemoved() {
+	console.log(`Removed`);
+}
+
+function onError(error) {
+	console.log(`Error: ${error}`);
+}
+
 function listTabs() {
 	getTabs().then(function (tabs) {
 		let tabsList = document.getElementById('tabList');
@@ -56,6 +64,7 @@ function listTabs() {
 			// This is used to add linebreak in textContent.
 			tabLink.setAttribute('style', 'white-space: pre;');
 			tabLink.setAttribute('href', tab.url);
+			tabLink.setAttribute('id', tab.id);
 
 			// tabLink.onclick = function () {
 			// 	// window.open(tab.id, tab.title);
@@ -65,18 +74,18 @@ function listTabs() {
 
 
 			// WIP-------------------------------------------
-			tabLink.addEventListener("click", function (e) {
-				// e.preventDefault();
-				// browser.windows.create({
-				// 	url: tabLink.getAttribute('href'),
-				// 	tabId: tab.id,
-				// 	focused: true
-				// });
-				// alert(tab.id)
-				// window.open(tabLink.getAttribute('href'));
-				browser.tabs.remove(tab.id)
-
-			})
+			// tabLink.addEventListener("click", function (e) {
+			// e.preventDefault();
+			// browser.windows.create({
+			// 	url: tabLink.getAttribute('href'),
+			// 	tabId: tab.id,
+			// 	focused: true
+			// });
+			// alert(tab.id)
+			// window.open(tabLink.getAttribute('href'));
+			// 	var removing = browser.tabs.remove(tabLink.getAttribute('id'));
+			// 	removing.then(onRemoved, onError);
+			// })
 			// ----------------------------------------------
 
 			if (tab.active) {
