@@ -18,7 +18,8 @@ html, body {
 }
 
 .button {
-	margin: 3% auto;
+	/* margin: 3% auto; */
+	width: 50px;
 	padding: 4px;
 	text-align: center;
 	font-size: 1.5em;
