@@ -14,6 +14,12 @@ function getTabs() {
 	return browser.tabs.query({});
 }
 
+// Function for displaying the QR Code 
+function dispQR(tabLink) {
+	document.body.innerHTML = "";
+}
+
+
 function listTabs() {
 	getTabs().then(function (tabs) {
 		let tabsList = document.getElementById('tabList');
@@ -47,13 +53,17 @@ function listTabs() {
 
 			let ul = document.createElement('ul');
 			let btn = document.createElement('a');
-			let img = document.createElement('img');
 			let tabLink = document.createElement('a');
 			let br = document.createElement('br');
 			let time = new Date(tab.lastAccessed).toLocaleString();
+			// For button
+			let img = document.createElement('img');
+			let fig = document.createElement('figure');
+			let figCaption = document.createElement('figcaption');
 
 			tabLink.textContent = tabCounter + '. ' + (tab.title || tab.id);
 			tabLink.textContent += ' \r\n\tLast accessed: ' + time;
+			figCaption.textContent = 'Display QR Code';
 
 			// This is used to add linebreak in textContent.
 			tabLink.setAttribute('style', 'white-space: pre;');
@@ -62,7 +72,7 @@ function listTabs() {
 			img.setAttribute('alt', 'QR Code Img');
 			btn.setAttribute('role', 'button');
 			btn.setAttribute('href', '#');
-			btn.setAttribute('style', 'width: 80px');
+			btn.setAttribute('style', 'width: 100px');
 
 
 			if (tab.active) {
@@ -73,17 +83,18 @@ function listTabs() {
 			// overflow-auto is used to handle text that's longer than the popup
 			tabLink.classList.add('list-group-item', 'list-group-item-action', 'overflow-auto');
 			btn.classList.add('list-group-item', 'list-group-item-action', 'overflow-auto', 'btn', 'btn-outline-dark', 'button');
-			img.classList.add('mx-auto', 'd-block');
+			fig.classList.add('mx-auto', 'd-block');
 			ul.classList.add('list-group', 'list-group-horizontal');
 
-			btn.appendChild(img);
+			fig.appendChild(img);
+			fig.appendChild(figCaption);
+			btn.appendChild(fig);
 			ul.appendChild(tabLink);
 			ul.appendChild(btn);
 			currentTabs.appendChild(ul);
 			currentTabs.appendChild(br);
 
 			tabCounter += 1;
-
 		}
 		tabsList.appendChild(currentTabs);
 	});
