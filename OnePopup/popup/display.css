@@ -10,6 +10,10 @@ html, body {
 	margin: 0;
 }
 
+figcaption {
+	font-size: 12px;
+}
+
 .para {
 	text-align: center;
 	margin-left: auto;
@@ -19,7 +23,7 @@ html, body {
 
 .button {
 	/* margin: 3% auto; */
-	width: 50px;
+	width: 100px;
 	padding: 4px;
 	text-align: center;
 	font-size: 1.5em;
