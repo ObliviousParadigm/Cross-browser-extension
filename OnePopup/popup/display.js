@@ -103,7 +103,7 @@ function listTabs() {
 				var code = kjua(
 					{
 						render: 'canvas',
-						text: tab.url,
+						text: tabLink.getAttribute('href'),
 						size: 250,
 					});
 				document.querySelector('body').appendChild(code);
