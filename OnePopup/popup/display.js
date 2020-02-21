@@ -14,21 +14,6 @@ function getTabs() {
 	return browser.tabs.query({});
 }
 
-// Function for displaying the QR Code 
-function dispQR(tabLink) {
-	// console.log(tabLink);
-	document.body.textContent = '';
-	var code = kjua(
-		{
-			render: 'image',
-			text: tabLink
-		}
-	)
-	code.setAttribute('width: 100%');
-	code.setAttribute('height: 100%');
-	document.querySelector('body').appendChild(code);
-}
-
 function listTabs() {
 	getTabs().then(function (tabs) {
 		let tabsList = document.getElementById('tabList');
@@ -99,14 +84,38 @@ function listTabs() {
 			// btn.onclick = dispQR(tabLink.getAttribute('href'));
 			btn.onclick = function () {
 				// console.log(tabLink);
-				document.body.textContent = '';
-				var code = kjua(
+				let body = document.querySelector('body');
+				let deets = document.createElement('p');
+				let back = document.createElement('button');
+
+				body.textContent = '';
+				back.textContent = 'Display all the websites';
+
+				let code = kjua(
 					{
 						render: 'canvas',
 						text: tabLink.getAttribute('href'),
 						size: 250,
 					});
-				document.querySelector('body').appendChild(code);
+
+				// deets.setAttribute('style', 'white-space: pre;');
+
+				// Use textContent instead
+				// ---------------------------------------------------------
+				deets.classList.add('text-center', 'text-muted', 'text-break');
+				back.classList.add('text-center', 'text-wrap', 'alert', 'alert-danger');
+				// back.setAttribute('style', '');
+				body.setAttribute('style', 'height: 400px;');
+
+				deets.innerHTML = 'Please scan the QR Code with<br>your phone camera or<br>a QR code reader';
+				// ---------------------------------------------------------
+
+				// back.addEventListener("click", func);
+
+				body.appendChild(code);
+				body.appendChild(br);
+				body.appendChild(deets);
+				body.appendChild(back);
 			};
 
 			if (tab.active) {
