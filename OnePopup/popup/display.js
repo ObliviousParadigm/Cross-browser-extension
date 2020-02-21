@@ -14,6 +14,21 @@ function getTabs() {
 	return browser.tabs.query({});
 }
 
+// Function for displaying the QR Code 
+function dispQR(tabLink) {
+	// console.log(tabLink);
+	document.body.textContent = '';
+	var code = kjua(
+		{
+			render: 'image',
+			text: tabLink
+		}
+	)
+	code.setAttribute('width: 100%');
+	code.setAttribute('height: 100%');
+	document.querySelector('body').appendChild(code);
+}
+
 function listTabs() {
 	getTabs().then(function (tabs) {
 		let tabsList = document.getElementById('tabList');
@@ -27,6 +42,19 @@ function listTabs() {
 		tabsList.textContent = '';
 
 		let window = Infinity;
+
+		// Practice
+		// tab = tabs[0]
+
+		// let qrCode = new kjua({
+		// 	text: tab.url
+
+		// });
+
+		// code.setAttribute('width: 100%');
+		// code.setAttribute('height: 100%');
+		// document.querySelector('body').appendChild(qrCode);
+		//--------------------------------------------------------
 
 		for (tab of tabs) {
 
@@ -45,35 +73,43 @@ function listTabs() {
 				window = tab.windowId;
 			}
 
+			let ul = document.createElement('ul');
+			let btn = document.createElement('a');
 			let tabLink = document.createElement('a');
 			let br = document.createElement('br');
 			let time = new Date(tab.lastAccessed).toLocaleString();
+			// For button
+			let img = document.createElement('img');
+			let fig = document.createElement('figure');
+			let figCaption = document.createElement('figcaption');
 
 			tabLink.textContent = tabCounter + '. ' + (tab.title || tab.id);
 			tabLink.textContent += ' \r\n\tLast accessed: ' + time;
+			figCaption.textContent = 'Display QR Code';
 
 			// This is used to add linebreak in textContent.
 			tabLink.setAttribute('style', 'white-space: pre;');
 			tabLink.setAttribute('href', tab.url);
-
-			// WIP-------------------------------------------
-			// tabLink.addEventListener("click", function (e) {
-			// e.preventDefault();
-			// browser.windows.create({
-			// 	url: tabLink.getAttribute('href'),
-			// 	tabId: tab.id,
-			// 	focused: true
-			// });
-			// alert(tab.id)
-			// window.open(tabLink.getAttribute('href'));
-
-			// 	var removing = browser.tabs.remove(tabLink.getAttribute('id'));
-			// 	removing.then(onRemoved, onError);
-
-			// 	browser.tabs.remove(tab.id)
-
-			// })
-			// ----------------------------------------------
+			img.setAttribute('src', 'QR.png');
+			img.setAttribute('alt', 'QR Code Img');
+			btn.setAttribute('role', 'button');
+			btn.setAttribute('href', '#');
+			btn.setAttribute('style', 'width: 100px');
+			// Displaying the QR Code by sending the link
+			// btn.onclick = dispQR(tabLink.getAttribute('href'));
+			btn.onclick = function () {
+				// console.log(tabLink);
+				document.body.textContent = '';
+				var code = kjua(
+					{
+						render: 'image',
+						text: tab.url
+					}
+				)
+				code.setAttribute('width: 100%');
+				code.setAttribute('height: 100%');
+				document.querySelector('body').appendChild(code);
+			};
 
 			if (tab.active) {
 				tabLink.classList.add('active');
@@ -82,12 +118,19 @@ function listTabs() {
 			// list-group-item, list-group-item-action are used to display the anchor tags nicely
 			// overflow-auto is used to handle text that's longer than the popup
 			tabLink.classList.add('list-group-item', 'list-group-item-action', 'overflow-auto');
+			btn.classList.add('list-group-item', 'list-group-item-action', 'overflow-auto', 'btn', 'btn-outline-dark', 'button');
+			fig.classList.add('mx-auto', 'd-block');
+			ul.classList.add('list-group', 'list-group-horizontal');
 
-			currentTabs.appendChild(tabLink);
+			fig.appendChild(img);
+			fig.appendChild(figCaption);
+			btn.appendChild(fig);
+			ul.appendChild(tabLink);
+			ul.appendChild(btn);
+			currentTabs.appendChild(ul);
 			currentTabs.appendChild(br);
 
 			tabCounter += 1;
-
 		}
 		tabsList.appendChild(currentTabs);
 	});
