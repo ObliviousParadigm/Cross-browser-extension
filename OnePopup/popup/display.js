@@ -16,6 +16,7 @@ function getTabs() {
 
 // Function for displaying the QR Code 
 function dispQR(tabLink) {
+	// console.log(tabLink);
 	document.body.textContent = '';
 	var code = kjua(
 		{
@@ -94,10 +95,21 @@ function listTabs() {
 			btn.setAttribute('role', 'button');
 			btn.setAttribute('href', '#');
 			btn.setAttribute('style', 'width: 100px');
-
 			// Displaying the QR Code by sending the link
 			// btn.onclick = dispQR(tabLink.getAttribute('href'));
-			btn.setAttribute('onclick', 'dispQR(tabLink.getAttribute("href"))');
+			btn.onclick = function () {
+				// console.log(tabLink);
+				document.body.textContent = '';
+				var code = kjua(
+					{
+						render: 'image',
+						text: tab.url
+					}
+				)
+				code.setAttribute('width: 100%');
+				code.setAttribute('height: 100%');
+				document.querySelector('body').appendChild(code);
+			};
 
 			if (tab.active) {
 				tabLink.classList.add('active');
