@@ -100,13 +100,21 @@ function listTabs() {
 			btn.onclick = function () {
 				// console.log(tabLink);
 				document.body.textContent = '';
-				var code = kjua(
+				let code = kjua(
 					{
 						render: 'canvas',
 						text: tabLink.getAttribute('href'),
 						size: 250,
 					});
+
+				let deets = document.createElement('p');
+
+				deets.textContent = tabLink.textContent;
+				deets.classList.add('text-center', 'text-muted');
+
 				document.querySelector('body').appendChild(code);
+				document.querySelector('body').appendChild(br);
+				document.querySelector('body').appendChild(deets);
 			};
 
 			if (tab.active) {
