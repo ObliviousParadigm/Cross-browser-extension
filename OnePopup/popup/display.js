@@ -102,12 +102,10 @@ function listTabs() {
 				document.body.textContent = '';
 				var code = kjua(
 					{
-						render: 'image',
-						text: tab.url
-					}
-				)
-				code.setAttribute('width: 100%');
-				code.setAttribute('height: 100%');
+						render: 'canvas',
+						text: tab.url,
+						size: 250,
+					});
 				document.querySelector('body').appendChild(code);
 			};
 
