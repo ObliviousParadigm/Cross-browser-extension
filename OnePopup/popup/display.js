@@ -16,9 +16,17 @@ function getTabs() {
 
 // Function for displaying the QR Code 
 function dispQR(tabLink) {
-	document.body.innerHTML = "";
+	document.body.textContent = '';
+	var code = kjua(
+		{
+			render: 'image',
+			text: tabLink
+		}
+	)
+	code.setAttribute('width: 100%');
+	code.setAttribute('height: 100%');
+	document.querySelector('body').appendChild(code);
 }
-
 
 function listTabs() {
 	getTabs().then(function (tabs) {
@@ -33,6 +41,19 @@ function listTabs() {
 		tabsList.textContent = '';
 
 		let window = Infinity;
+
+		// Practice
+		// tab = tabs[0]
+
+		// let qrCode = new kjua({
+		// 	text: tab.url
+
+		// });
+
+		// code.setAttribute('width: 100%');
+		// code.setAttribute('height: 100%');
+		// document.querySelector('body').appendChild(qrCode);
+		//--------------------------------------------------------
 
 		for (tab of tabs) {
 
@@ -74,6 +95,9 @@ function listTabs() {
 			btn.setAttribute('href', '#');
 			btn.setAttribute('style', 'width: 100px');
 
+			// Displaying the QR Code by sending the link
+			// btn.onclick = dispQR(tabLink.getAttribute('href'));
+			btn.setAttribute('onclick', 'dispQR(tabLink.getAttribute("href"))');
 
 			if (tab.active) {
 				tabLink.classList.add('active');
