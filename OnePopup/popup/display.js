@@ -110,7 +110,7 @@ function listTabs() {
 				deets.innerHTML = 'Please scan the QR Code with<br>your phone camera or<br>a QR code reader';
 				// ---------------------------------------------------------
 
-				// back.addEventListener("click", func);
+				back.addEventListener("click", listTabs());
 
 				body.appendChild(code);
 				body.appendChild(br);

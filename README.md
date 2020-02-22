@@ -12,4 +12,4 @@ Just trying to make web browser extensions
 ### Load the extension in Firefox
 
 1. Open Firefox browser and navigate to `about:debugging` 
-2. Click "Load Temporary Add-on" and from the file browser, choose `Extensions/OnePopup/manifest.json` 
+2. Click "Load Temporary Add-on" and from the file browser, choose `Extensions/OnePopup/manifest.json`
