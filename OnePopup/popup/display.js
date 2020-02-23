@@ -14,6 +14,10 @@ function getTabs() {
 	return browser.tabs.query({});
 }
 
+function func() {
+	document.querySelector('body').textContent = 'Hello';
+}
+
 function listTabs() {
 	getTabs().then(function (tabs) {
 		let tabsList = document.getElementById('tabList');
@@ -82,6 +86,9 @@ function listTabs() {
 			btn.setAttribute('style', 'width: 100px');
 			// Displaying the QR Code by sending the link
 			// btn.onclick = dispQR(tabLink.getAttribute('href'));
+
+			// btn.onclick = () => dispQR(tabLink.getAttribute('href'));
+
 			btn.onclick = function () {
 				// console.log(tabLink);
 				let body = document.querySelector('body');
@@ -110,7 +117,7 @@ function listTabs() {
 				deets.innerHTML = 'Please scan the QR Code with<br>your phone camera or<br>a QR code reader';
 				// ---------------------------------------------------------
 
-				back.addEventListener("click", listTabs());
+				back.addEventListener("click", () => listTabs());
 
 				body.appendChild(code);
 				body.appendChild(br);
