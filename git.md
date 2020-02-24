@@ -45,8 +45,14 @@ goes down the tree, finds the first common commit, and whatever commit has been 
 git stash
 if you've made changes but haven't commited them
 all the changes that haven't been commited will be made into a copy and removed from that branch
-now go to branch you're supposed to be in
+now go to branch you're supposed to be in 
 then do 
-git checkout <branchName>
+git checkout <branchName> 
 git stash apply 
-it applies all the changes into the chosen branch
+it applies all the changes into the chosen branch 
+
+
+
+Javascript
+single threaded
+promises

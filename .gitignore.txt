@@ -2,3 +2,4 @@ OnePopup/popup/pracQR.html
 OnePopup/david*
 *.md
 !README.md
+git.md
