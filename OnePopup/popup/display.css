@@ -22,10 +22,6 @@ figcaption {
 }
 
 .button {
-	/* margin: 3% auto; */
-	width: 100px;
-	padding: 4px;
-	text-align: center;
-	font-size: 1.5em;
-	cursor: pointer;
+	margin: auto;
+	display: block;
 }
