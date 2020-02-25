@@ -1,7 +1,9 @@
 // Execute listTabs when display.html is loaded
-document.addEventListener("DOMContentLoaded", listTabs);
+document.addEventListener("DOMContentLoaded", call);
 
-// listTabs();
+function call() {
+	listTabs();
+}
 
 function getTabs() {
 	// Return tabs.Tab object for tabs in the current window
@@ -48,10 +50,9 @@ function dispQR(url) {
 	deets.innerHTML = 'Please scan the QR Code with<br>your phone camera or<br>a QR code reader';
 	// ---------------------------------------------------------
 
-	back.onclick = () => listTabs();
+	back.onclick = () => call();
 
 	body.appendChild(code);
-	// body.appendChild(br);
 	body.appendChild(deets);
 	body.appendChild(back);
 };
@@ -69,19 +70,6 @@ function listTabs() {
 		tabsList.textContent = '';
 
 		let window = Infinity;
-
-		// Practice
-		// tab = tabs[0]
-
-		// let qrCode = new kjua({
-		// 	text: tab.url
-
-		// });
-
-		// code.setAttribute('width: 100%');
-		// code.setAttribute('height: 100%');
-		// document.querySelector('body').appendChild(qrCode);
-		//--------------------------------------------------------
 
 		for (tab of tabs) {
 
