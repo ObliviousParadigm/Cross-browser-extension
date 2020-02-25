@@ -1,6 +1,8 @@
 // Execute listTabs when display.html is loaded
 document.addEventListener("DOMContentLoaded", listTabs);
 
+// listTabs();
+
 function getTabs() {
 	// Return tabs.Tab object for tabs in the current window
 
@@ -17,6 +19,42 @@ function getTabs() {
 function func() {
 	document.querySelector('body').textContent = 'Hello';
 }
+
+function dispQR(url) {
+	// console.log(tabLink);
+	let body = document.querySelector('body');
+	let deets = document.createElement('p');
+	let back = document.createElement('button');
+
+	body.textContent = '';
+	back.textContent = 'Display all the websites';
+
+	let code = kjua(
+		{
+			render: 'canvas',
+			text: url,
+			size: 250,
+		});
+
+	// deets.setAttribute('style', 'white-space: pre;');
+
+	// Use textContent instead
+	// ---------------------------------------------------------
+	deets.classList.add('text-center', 'text-muted', 'text-break');
+	back.classList.add('text-center', 'text-wrap', 'alert', 'alert-danger', 'button');
+	// back.setAttribute('style', '');
+	body.setAttribute('style', 'height: 400px;');
+
+	deets.innerHTML = 'Please scan the QR Code with<br>your phone camera or<br>a QR code reader';
+	// ---------------------------------------------------------
+
+	back.onclick = () => listTabs();
+
+	body.appendChild(code);
+	// body.appendChild(br);
+	body.appendChild(deets);
+	body.appendChild(back);
+};
 
 function listTabs() {
 	getTabs().then(function (tabs) {
@@ -87,43 +125,7 @@ function listTabs() {
 			// Displaying the QR Code by sending the link
 			// btn.onclick = dispQR(tabLink.getAttribute('href'));
 
-			// btn.onclick = () => dispQR(tabLink.getAttribute('href'));
-
-			btn.onclick = function () {
-				// console.log(tabLink);
-				let body = document.querySelector('body');
-				let deets = document.createElement('p');
-				let back = document.createElement('button');
-
-				body.textContent = '';
-				back.textContent = 'Display all the websites';
-
-				let code = kjua(
-					{
-						render: 'canvas',
-						text: tabLink.getAttribute('href'),
-						size: 250,
-					});
-
-				// deets.setAttribute('style', 'white-space: pre;');
-
-				// Use textContent instead
-				// ---------------------------------------------------------
-				deets.classList.add('text-center', 'text-muted', 'text-break');
-				back.classList.add('text-center', 'text-wrap', 'alert', 'alert-danger');
-				// back.setAttribute('style', '');
-				body.setAttribute('style', 'height: 400px;');
-
-				deets.innerHTML = 'Please scan the QR Code with<br>your phone camera or<br>a QR code reader';
-				// ---------------------------------------------------------
-
-				back.addEventListener("click", () => listTabs());
-
-				body.appendChild(code);
-				body.appendChild(br);
-				body.appendChild(deets);
-				body.appendChild(back);
-			};
+			btn.onclick = () => dispQR(tabLink.getAttribute('href'));
 
 			if (tab.active) {
 				tabLink.classList.add('active');
