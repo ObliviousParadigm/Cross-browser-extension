@@ -14,10 +14,6 @@ function getTabs() {
 	return browser.tabs.query({});
 }
 
-function func() {
-	document.querySelector('body').textContent = 'Hello';
-}
-
 function newTab() {
 	getTabs().then(function (tabs) {
 		let tabsList = document.getElementById('tabList');
@@ -103,12 +99,16 @@ function newTab() {
 }
 
 function dispQR(url) {
-	// console.log(tabLink);
+	let hide = document.querySelector('.switchTabs');
+	let disp = document.querySelector('.qrCode');
+
 	let body = document.querySelector('body');
 	let deets = document.createElement('p');
 	let back = document.createElement('button');
 
-	body.textContent = '';
+	// body.textContent = '';
+	hide.style.display = 'none';
+	disp.style.display = 'block';
 	back.textContent = 'Display all the websites';
 
 	let code = kjua(
@@ -123,23 +123,44 @@ function dispQR(url) {
 	// Use textContent instead
 	// ---------------------------------------------------------
 	deets.classList.add('text-center', 'text-muted', 'text-break');
-	back.classList.add('text-center', 'text-wrap', 'alert', 'alert-danger', 'button');
-	// back.setAttribute('style', '');
-	body.setAttribute('style', 'height: 400px;');
+	back.classList.add('text-center', 'alert', 'alert-danger', 'btn');
+
+	back.setAttribute('style', 'margin: auto; display: block;');
+	// body.setAttribute('style', 'height: auto;');
 
 	deets.innerHTML = 'Please scan the QR Code with<br>your phone camera or<br>a QR code reader';
 	// ---------------------------------------------------------
 
-	back.onclick = () => listTabs();
+	back.onclick = function () {
+		body.removeChild(code);
+		body.removeChild(deets);
+		body.removeChild(back);
+		hide.style.display = 'block';
+		disp.style.display = 'none';
+	}
 
 	body.appendChild(code);
 	body.appendChild(deets);
 	body.appendChild(back);
 };
 
+function onRemoved() {
+	console.log(`Removed`);
+}
+
+function onError(error) {
+	console.log(`Error: ${error}`);
+}
+
 function listTabs() {
+	// let head = document.createElement('p');
+	// head.innerHTML = '<b>All your tabs in one place</b>';
+	// head.setAttribute('id', 'header');
+	// head.classList.add('text-center', 'h4', 'text-muted');
+	// document.body.appendChild(head);
 	getTabs().then(function (tabs) {
-		let tabsList = document.getElementById('tabList');
+		let tabsList = document.getElementsByClassName('tabListClass');
+		// event.target.innerHTML = tabsList.length;
 		let currentTabs = document.createDocumentFragment();
 		let tabCounter = 1;
 		let winCounter = 1;
@@ -185,6 +206,7 @@ function listTabs() {
 			// This is used to add linebreak in textContent.
 			tabLink.setAttribute('style', 'white-space: pre;');
 			tabLink.setAttribute('href', tab.url);
+			tabLink.setAttribute('id', tab.id);
 			img.setAttribute('src', 'QR.png');
 			img.setAttribute('alt', 'QR Code Img');
 			btn.setAttribute('role', 'button');
@@ -194,6 +216,7 @@ function listTabs() {
 			// btn.onclick = dispQR(tabLink.getAttribute('href'));
 
 			btn.onclick = () => dispQR(tabLink.getAttribute('href'));
+			tabLink.onclick = () => redirectToTab(tabLink.getAttribute('id'));
 
 			if (tab.active) {
 				tabLink.classList.add('active');
