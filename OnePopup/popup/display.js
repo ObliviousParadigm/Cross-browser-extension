@@ -14,6 +14,23 @@ function getTabs() {
 	return browser.tabs.query({});
 }
 
+function redirectToTab(e) {
+	var tabLink = link.getAttribute('href');
+	event.target.innerHTML = 'hello'
+
+	getTabs().then(function (tabs) {
+		for (let tab of tabs) {
+			if (tab.url == tabLink) {
+				browser.tabs.update({
+					active: true,
+					url: link
+				});
+			}
+		}
+	});
+	event.preventDefault();
+}
+
 function dispQR(url) {
 	let hide = document.querySelector('.switchTabs');
 	let disp = document.querySelector('.qrCode');
@@ -69,13 +86,8 @@ function onError(error) {
 }
 
 function listTabs() {
-	// let head = document.createElement('p');
-	// head.innerHTML = '<b>All your tabs in one place</b>';
-	// head.setAttribute('id', 'header');
-	// head.classList.add('text-center', 'h4', 'text-muted');
-	// document.body.appendChild(head);
 	getTabs().then(function (tabs) {
-		let tabsList = document.getElementsByClassName('tabListClass');
+		let tabsList = document.getElementById('tabList');
 		// event.target.innerHTML = tabsList.length;
 		let currentTabs = document.createDocumentFragment();
 		let tabCounter = 1;
@@ -100,8 +112,8 @@ function listTabs() {
 				currentTabs.appendChild(newWindow);
 
 				// Updating and reseting variables
-				tabCounter = 1
-				winCounter += 1
+				tabCounter = 1;
+				winCounter += 1;
 				window = tab.windowId;
 			}
 
@@ -122,7 +134,7 @@ function listTabs() {
 			// This is used to add linebreak in textContent.
 			tabLink.setAttribute('style', 'white-space: pre;');
 			tabLink.setAttribute('href', tab.url);
-			tabLink.setAttribute('id', tab.id);
+			// tabLink.setAttribute('id', tab.id);
 			img.setAttribute('src', 'QR.png');
 			img.setAttribute('alt', 'QR Code Img');
 			btn.setAttribute('role', 'button');
@@ -132,7 +144,7 @@ function listTabs() {
 			// btn.onclick = dispQR(tabLink.getAttribute('href'));
 
 			btn.onclick = () => dispQR(tabLink.getAttribute('href'));
-			tabLink.onclick = () => redirectToTab(tabLink.getAttribute('id'));
+			// tabLink.onclick = () => redirectToTab(tabLink.getAttribute('id'));
 
 			if (tab.active) {
 				tabLink.classList.add('active');
