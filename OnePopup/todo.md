@@ -9,5 +9,7 @@
   * ~~Remove underline~~
   * ~~Change colour~~
   * ~~Add padding/margins~~
+  * Fix back button
+* Make the sizes relative
 * Make a variant that displays all the tabs from specific websites in one place
 * Dark mode?
