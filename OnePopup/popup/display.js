@@ -14,21 +14,21 @@ function getTabs() {
 	return browser.tabs.query({});
 }
 
-function redirectToTab(e) {
-	var tabLink = link.getAttribute('href');
+function redirectToTab(e, link, id) {
 	e.preventDefault();
-	// event.target.innerHTML = 'hello'
-
-	// getTabs().then(function (tabs) {
-	// 	for (let tab of tabs) {
-	// 		if (tab.url == tabLink) {
-	// 			browser.tabs.update({
-	// 				active: true,
-	// 				url: link
-	// 			});
-	// 		}
-	// 	}
-	// });
+	getTabs().then(function (tabs) {
+		for (let tab of tabs) {
+			if (tab.url == link && tab.id == id) {
+				// e.target.innerHTML = 'found'+tab.url+' '+tab.id+' '+tabLink;
+				browser.tabs.update(tab.id, {
+					active: true
+				});
+				browser.windows.update(tab.windowId, {
+					focused: true
+				});
+			}
+		}
+	});
 }
 
 function dispQR(url) {
@@ -76,14 +76,6 @@ function dispQR(url) {
 	body.appendChild(deets);
 	body.appendChild(back);
 };
-
-function onRemoved() {
-	console.log(`Removed`);
-}
-
-function onError(error) {
-	console.log(`Error: ${error}`);
-}
 
 function listTabs() {
 	getTabs().then(function (tabs) {
@@ -133,7 +125,7 @@ function listTabs() {
 			// This is used to add linebreak in textContent.
 			tabLink.setAttribute('style', 'white-space: pre;');
 			tabLink.setAttribute('href', tab.url);
-			// tabLink.setAttribute('id', tab.id);
+			tabLink.setAttribute('data-id', tab.id);
 			img.setAttribute('src', 'QR.png');
 			img.setAttribute('alt', 'QR Code Img');
 			btn.setAttribute('role', 'button');
@@ -143,23 +135,7 @@ function listTabs() {
 			// btn.onclick = dispQR(tabLink.getAttribute('href'));
 
 			btn.onclick = () => dispQR(tabLink.getAttribute('href'));
-			// tabLink.onclick = () => redirectToTab(tabLink.getAttribute('id'));
-			tabLink.onclick = function (e) {
-				e.preventDefault();
-				getTabs().then(function (tabs) {
-					for (let tab of tabs) {
-						if (tab.url == tabLink) {
-							// e.target.innerHTML = 'found'+tab.url+' '+tab.id+' '+tabLink;
-							browser.tabs.update(tab.id, {
-								active: true
-							});
-							browser.windows.update(tab.windowId, {
-								focused: true
-							});
-						}
-					}
-				});
-			}
+			tabLink.onclick = () => redirectToTab(event, tabLink.getAttribute('href'), tabLink.getAttribute('data-id'));
 
 			if (tab.active) {
 				tabLink.classList.add('active');
