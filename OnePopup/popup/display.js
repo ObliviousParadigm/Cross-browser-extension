@@ -1,5 +1,5 @@
 // Execute listTabs when display.html is loaded
-document.addEventListener("DOMContentLoaded", newTab);
+document.addEventListener("DOMContentLoaded", listTabs);
 
 function getTabs() {
 	// Return tabs.Tab object for tabs in the current window
@@ -14,88 +14,21 @@ function getTabs() {
 	return browser.tabs.query({});
 }
 
-function newTab() {
-	getTabs().then(function (tabs) {
-		let tabsList = document.getElementById('tabList');
-		let currentTabs = document.createDocumentFragment();
-		let tabCounter = 1;
-		let winCounter = 1;
-		let tab;
+function redirectToTab(e) {
+	var tabLink = link.getAttribute('href');
+	e.preventDefault();
+	// event.target.innerHTML = 'hello'
 
-		// Clear the content of tabList to keep refreshing the data 
-		// everytime you click on the extension
-		tabsList.textContent = '';
-
-		let window = Infinity;
-
-		for (tab of tabs) {
-
-			if (tab.windowId != window) {
-				let newWindow = document.createElement('p');
-				newWindow.innerHTML = 'Window ' + winCounter;
-
-				newWindow.setAttribute('style', 'white-space: pre; margin: 7px auto 1px auto');
-				newWindow.classList.add('para', 'alert', 'alert-dark', 'w-25', 'h-25');
-
-				currentTabs.appendChild(newWindow);
-
-				// Updating and reseting variables
-				tabCounter = 1
-				winCounter += 1
-				window = tab.windowId;
-			}
-
-			let ul = document.createElement('ul');
-			let btn = document.createElement('a');
-			let tabLink = document.createElement('a');
-			let br = document.createElement('br');
-			let time = new Date(tab.lastAccessed).toLocaleString();
-			// For button
-			let img = document.createElement('img');
-			let fig = document.createElement('figure');
-			let figCaption = document.createElement('figcaption');
-
-			tabLink.textContent = tabCounter + '. ' + (tab.title || tab.id);
-			tabLink.textContent += ' \r\n\tLast accessed: ' + time;
-			figCaption.textContent = 'Display QR Code';
-
-			// This is used to add linebreak in textContent.
-			tabLink.setAttribute('style', 'white-space: pre;');
-			tabLink.setAttribute('href', tab.url);
-			img.setAttribute('src', 'QR.png');
-			img.setAttribute('alt', 'QR Code Img');
-			btn.setAttribute('role', 'button');
-			btn.setAttribute('href', '#');
-			btn.setAttribute('style', 'width: 100px');
-			// Displaying the QR Code by sending the link
-			// btn.onclick = dispQR(tabLink.getAttribute('href'));
-
-			btn.onclick = () => dispQR(tabLink.getAttribute('href'));
-
-			if (tab.active) {
-				tabLink.classList.add('active');
-			}
-
-			// list-group-item, list-group-item-action are used to display the anchor tags nicely
-			// overflow-auto is used to handle text that's longer than the popup
-			tabLink.classList.add('list-group-item', 'list-group-item-action', 'overflow-auto');
-			btn.classList.add('list-group-item', 'list-group-item-action', 'overflow-auto', 'btn', 'btn-outline-dark', 'button');
-			fig.classList.add('mx-auto', 'd-block');
-			ul.classList.add('list-group', 'list-group-horizontal');
-
-			fig.appendChild(img);
-			fig.appendChild(figCaption);
-			btn.appendChild(fig);
-			ul.appendChild(tabLink);
-			ul.appendChild(btn);
-			currentTabs.appendChild(ul);
-			currentTabs.appendChild(br);
-
-			tabCounter += 1;
-		}
-		tabsList.appendChild(currentTabs);
-	}
-	);
+	// getTabs().then(function (tabs) {
+	// 	for (let tab of tabs) {
+	// 		if (tab.url == tabLink) {
+	// 			browser.tabs.update({
+	// 				active: true,
+	// 				url: link
+	// 			});
+	// 		}
+	// 	}
+	// });
 }
 
 function dispQR(url) {
@@ -153,14 +86,8 @@ function onError(error) {
 }
 
 function listTabs() {
-	// let head = document.createElement('p');
-	// head.innerHTML = '<b>All your tabs in one place</b>';
-	// head.setAttribute('id', 'header');
-	// head.classList.add('text-center', 'h4', 'text-muted');
-	// document.body.appendChild(head);
 	getTabs().then(function (tabs) {
-		let tabsList = document.getElementsByClassName('tabListClass');
-		// event.target.innerHTML = tabsList.length;
+		let tabsList = document.getElementById('tabList');
 		let currentTabs = document.createDocumentFragment();
 		let tabCounter = 1;
 		let winCounter = 1;
@@ -184,8 +111,8 @@ function listTabs() {
 				currentTabs.appendChild(newWindow);
 
 				// Updating and reseting variables
-				tabCounter = 1
-				winCounter += 1
+				tabCounter = 1;
+				winCounter += 1;
 				window = tab.windowId;
 			}
 
@@ -206,7 +133,7 @@ function listTabs() {
 			// This is used to add linebreak in textContent.
 			tabLink.setAttribute('style', 'white-space: pre;');
 			tabLink.setAttribute('href', tab.url);
-			tabLink.setAttribute('id', tab.id);
+			// tabLink.setAttribute('id', tab.id);
 			img.setAttribute('src', 'QR.png');
 			img.setAttribute('alt', 'QR Code Img');
 			btn.setAttribute('role', 'button');
@@ -216,7 +143,23 @@ function listTabs() {
 			// btn.onclick = dispQR(tabLink.getAttribute('href'));
 
 			btn.onclick = () => dispQR(tabLink.getAttribute('href'));
-			tabLink.onclick = () => redirectToTab(tabLink.getAttribute('id'));
+			// tabLink.onclick = () => redirectToTab(tabLink.getAttribute('id'));
+			tabLink.onclick = function (e) {
+				e.preventDefault();
+				getTabs().then(function (tabs) {
+					for (let tab of tabs) {
+						if (tab.url == tabLink) {
+							// e.target.innerHTML = 'found'+tab.url+' '+tab.id+' '+tabLink;
+							browser.tabs.update(tab.id, {
+								active: true
+							});
+							browser.windows.update(tab.windowId, {
+								focused: true
+							});
+						}
+					}
+				});
+			}
 
 			if (tab.active) {
 				tabLink.classList.add('active');
