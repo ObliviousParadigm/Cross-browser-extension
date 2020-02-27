@@ -5,13 +5,13 @@ function getTabs() {
 	// Return tabs.Tab object for tabs in the current window
 
 	// ONLY ACTIVE WINDOW
-	return browser.tabs.query({ currentWindow: true });
+	// return browser.tabs.query({ currentWindow: true });
 
 	// EVERY WINDOW BUT THE ACTIVE WINDOW
 	// return browser.tabs.query({ currentWindow: false });
 
 	// ALL WINDOWS
-	// return browser.tabs.query({});
+	return browser.tabs.query({});
 }
 
 function redirectToTab(e) {
@@ -152,6 +152,9 @@ function listTabs() {
 							// e.target.innerHTML = 'found'+tab.url+' '+tab.id+' '+tabLink;
 							browser.tabs.update(tab.id, {
 								active: true
+							});
+							browser.windows.update(tab.windowId, {
+								focused: true
 							});
 						}
 					}
