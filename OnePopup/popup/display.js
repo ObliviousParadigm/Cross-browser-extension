@@ -5,30 +5,30 @@ function getTabs() {
 	// Return tabs.Tab object for tabs in the current window
 
 	// ONLY ACTIVE WINDOW
-	// return browser.tabs.query({ currentWindow: true });
+	return browser.tabs.query({ currentWindow: true });
 
 	// EVERY WINDOW BUT THE ACTIVE WINDOW
 	// return browser.tabs.query({ currentWindow: false });
 
 	// ALL WINDOWS
-	return browser.tabs.query({});
+	// return browser.tabs.query({});
 }
 
 function redirectToTab(e) {
 	var tabLink = link.getAttribute('href');
-	event.target.innerHTML = 'hello'
+	e.preventDefault();
+	// event.target.innerHTML = 'hello'
 
-	getTabs().then(function (tabs) {
-		for (let tab of tabs) {
-			if (tab.url == tabLink) {
-				browser.tabs.update({
-					active: true,
-					url: link
-				});
-			}
-		}
-	});
-	event.preventDefault();
+	// getTabs().then(function (tabs) {
+	// 	for (let tab of tabs) {
+	// 		if (tab.url == tabLink) {
+	// 			browser.tabs.update({
+	// 				active: true,
+	// 				url: link
+	// 			});
+	// 		}
+	// 	}
+	// });
 }
 
 function dispQR(url) {
@@ -88,7 +88,6 @@ function onError(error) {
 function listTabs() {
 	getTabs().then(function (tabs) {
 		let tabsList = document.getElementById('tabList');
-		// event.target.innerHTML = tabsList.length;
 		let currentTabs = document.createDocumentFragment();
 		let tabCounter = 1;
 		let winCounter = 1;
@@ -145,6 +144,19 @@ function listTabs() {
 
 			btn.onclick = () => dispQR(tabLink.getAttribute('href'));
 			// tabLink.onclick = () => redirectToTab(tabLink.getAttribute('id'));
+			tabLink.onclick = function (e) {
+				e.preventDefault();
+				getTabs().then(function (tabs) {
+					for (let tab of tabs) {
+						if (tab.url == tabLink) {
+							// e.target.innerHTML = 'found'+tab.url+' '+tab.id+' '+tabLink;
+							browser.tabs.update(tab.id, {
+								active: true
+							});
+						}
+					}
+				});
+			}
 
 			if (tab.active) {
 				tabLink.classList.add('active');
