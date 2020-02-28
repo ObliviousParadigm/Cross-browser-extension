@@ -4,7 +4,7 @@ Just trying to make web browser extensions
 
 ## 1. OnePopup
 
-* This is an extension for Firefox
+* This is an extension for Firefox (The Chrome variant will be coming soon)
 * This will display all the tabs that are open in the browser, grouped based on the window they're open in, and displayed the form of a list
 * The active tab of each window will be highlighted
 * Every link has a button next to it which will convert that link into a QR Code. This code can be scanned by any individual and the active website will open up in the phone
