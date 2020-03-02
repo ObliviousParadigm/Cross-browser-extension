@@ -112,14 +112,14 @@ function listTabs() {
 			let btn = document.createElement('a');
 			let tabLink = document.createElement('a');
 			let br = document.createElement('br');
-			let time = new Date(tab.lastAccessed).toLocaleString();
+			// let time = new Date(tab.lastAccessed).toLocaleString();
 			// For button
 			let img = document.createElement('img');
 			let fig = document.createElement('figure');
 			let figCaption = document.createElement('figcaption');
 
 			tabLink.textContent = tabCounter + '. ' + (tab.title || tab.id);
-			tabLink.textContent += ' \r\n\tLast accessed: ' + time;
+			// tabLink.textContent += ' \r\n\tLast accessed: ' + time;
 			figCaption.textContent = 'Display QR Code';
 
 			// This is used to add linebreak in textContent.
