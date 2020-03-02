@@ -5,13 +5,13 @@ function getTabs() {
 	// Return tabs.Tab object for tabs in the current window
 
 	// ONLY ACTIVE WINDOW
-	// return chrome.tabs.query({ currentWindow: true });
+	// return browser.tabs.query({ currentWindow: true });
 
 	// EVERY WINDOW BUT THE ACTIVE WINDOW
-	// return chrome.tabs.query({ currentWindow: false });
+	// return browser.tabs.query({ currentWindow: false });
 
 	// ALL WINDOWS
-	return chrome.tabs.query({});
+	return browser.tabs.query({});
 }
 
 function redirectToTab(e, link, id) {
@@ -20,10 +20,10 @@ function redirectToTab(e, link, id) {
 		for (let tab of tabs) {
 			if (tab.url == link && tab.id == id) {
 				// e.target.innerHTML = 'found'+tab.url+' '+tab.id+' '+tabLink;
-				chrome.tabs.update(tab.id, {
+				browser.tabs.update(tab.id, {
 					active: true
 				});
-				chrome.windows.update(tab.windowId, {
+				browser.windows.update(tab.windowId, {
 					focused: true
 				});
 			}
@@ -97,8 +97,8 @@ function listTabs() {
 				let newWindow = document.createElement('p');
 				newWindow.textContent = 'Window ' + winCounter;
 
-				newWindow.setAttribute('style', 'white-space: pre; margin: 7px auto 1px auto');
-				newWindow.classList.add('para', 'alert', 'alert-dark', 'w-25', 'h-25');
+				newWindow.setAttribute('style', 'white-space: pre; margin: 7px auto 5px auto; height: auto; width: auto;');
+				newWindow.classList.add('para', 'alert', 'alert-dark');
 
 				currentTabs.appendChild(newWindow);
 
@@ -130,7 +130,7 @@ function listTabs() {
 			img.setAttribute('alt', 'QR Code Img');
 			btn.setAttribute('role', 'button');
 			btn.setAttribute('href', '#');
-			btn.setAttribute('style', 'width: 100px');
+			btn.setAttribute('style', 'width: 100px;');
 			// Displaying the QR Code by sending the link
 			// btn.onclick = dispQR(tabLink.getAttribute('href'));
 
@@ -154,7 +154,7 @@ function listTabs() {
 			ul.appendChild(tabLink);
 			ul.appendChild(btn);
 			currentTabs.appendChild(ul);
-			currentTabs.appendChild(br);
+			// currentTabs.appendChild(br);
 
 			tabCounter += 1;
 		}
