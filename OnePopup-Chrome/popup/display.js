@@ -97,7 +97,7 @@ function listTabs() {
 				let newWindow = document.createElement('p');
 				newWindow.textContent = 'Window ' + winCounter;
 
-				newWindow.setAttribute('style', 'white-space: pre; margin: 7px auto 1px auto');
+				newWindow.setAttribute('style', 'white-space: pre; margin: 7px auto 5px auto; height: auto; width: auto;');
 				newWindow.classList.add('para', 'alert', 'alert-dark', 'w-25', 'h-25');
 
 				currentTabs.appendChild(newWindow);
