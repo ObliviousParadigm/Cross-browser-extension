@@ -1,0 +1,15 @@
+#header {
+	/* font-size: larger; */
+	margin: 0;
+}
+
+figcaption {
+	font-size: 12px;
+}
+
+.para {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	height: 10%;
+}
