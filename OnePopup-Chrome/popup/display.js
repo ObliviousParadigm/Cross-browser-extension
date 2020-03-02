@@ -5,13 +5,13 @@ function getTabs() {
 	// Return tabs.Tab object for tabs in the current window
 
 	// ONLY ACTIVE WINDOW
-	// return chrome.tabs.query({ currentWindow: true });
+	// return browser.tabs.query({ currentWindow: true });
 
 	// EVERY WINDOW BUT THE ACTIVE WINDOW
-	// return chrome.tabs.query({ currentWindow: false });
+	// return browser.tabs.query({ currentWindow: false });
 
 	// ALL WINDOWS
-	return chrome.tabs.query({});
+	return browser.tabs.query({});
 }
 
 function redirectToTab(e, link, id) {
@@ -20,10 +20,10 @@ function redirectToTab(e, link, id) {
 		for (let tab of tabs) {
 			if (tab.url == link && tab.id == id) {
 				// e.target.innerHTML = 'found'+tab.url+' '+tab.id+' '+tabLink;
-				chrome.tabs.update(tab.id, {
+				browser.tabs.update(tab.id, {
 					active: true
 				});
-				chrome.windows.update(tab.windowId, {
+				browser.windows.update(tab.windowId, {
 					focused: true
 				});
 			}
