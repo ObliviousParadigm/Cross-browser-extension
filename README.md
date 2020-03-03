@@ -2,11 +2,7 @@
 
 Just trying to make web browser extensions
 
-## 1. OnePopup: 
-
-### [Firefox](https://addons.mozilla.org/en-US/firefox/addon/onepopup/)
-
-### [Chrome](#)
+## 1. OnePopup: [Firefox](https://addons.mozilla.org/en-US/firefox/addon/onepopup/)   [Chrome](#)
 
 * This is a cross browser extension
 * This will display all the tabs that are open in the browser, grouped based on the window they're open in, and displayed the form of a list
