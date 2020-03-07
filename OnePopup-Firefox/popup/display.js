@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", listTabs);
 
 // browser is the namespace for the WebExtensions API
 
-// This function is used t return all the tabs (as objects>)
+// This function is used t return all the tabs (as objects?)
 // Return tabs.Tab object for tabs in the current window
 function getTabs() {
 	// ONLY ACTIVE WINDOW
@@ -126,8 +126,8 @@ function listTabs() {
 				newWindow.textContent = 'Window ' + winCounter;
 
 				// Beautifying the window box
-				newWindow.setAttribute('style', 'white-space: pre; margin: 7px auto 1px auto');
-				newWindow.classList.add('para', 'alert', 'alert-dark', 'w-25', 'h-25');
+				newWindow.setAttribute('style', 'white-space: pre; margin: 7px auto 5px auto; height: auto; width: auto;');
+				newWindow.classList.add('para', 'alert', 'alert-dark');
 
 				currentTabs.appendChild(newWindow);
 
@@ -138,7 +138,6 @@ function listTabs() {
 			}
 
 			// These are all the variables that will be used to display each tab
-			// 
 			let ul = document.createElement('ul');
 			let btn = document.createElement('a');
 			let tabLink = document.createElement('a');
