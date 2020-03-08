@@ -160,7 +160,9 @@ function listTabs() {
 			tabLink.setAttribute('data-id', tab.id);
 			img.setAttribute('src', 'QR.png');
 			img.setAttribute('alt', 'QR Code Img');
-			// (role)?
+			// role is an attribute that lets the screen reader know that
+			// this is not a link, it is a button
+			// it's not really needed but I just wanted to use it
 			btn.setAttribute('role', 'button');
 			btn.setAttribute('style', 'width: 100px');
 			// Displaying the QR Code by sending the link
