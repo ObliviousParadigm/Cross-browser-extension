@@ -148,8 +148,7 @@ function listTabs() {
 			let fig = document.createElement('figure');
 			let figCaption = document.createElement('figcaption');
 
-			tabLink.textContent = `${tabCounter}. ${(tab.title || tab.id)}`;
-			tabLink.textContent += ` \r\n\tLast accessed: ${time}`;
+			tabLink.textContent = `${tabCounter}. ${(tab.title || tab.id)}\n\tLast accessed: ${time}`;
 			figCaption.textContent = 'Display QR Code';
 
 			// white-space: pre; is used to add newlne '\n' in textContent
